@@ -1,0 +1,4 @@
+name: DropItems
+version: '${project.version}'
+main: org.cmc.dropitems.DropItems
+api-version: '1.20'

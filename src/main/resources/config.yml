@@ -1,0 +1,5 @@
+# MATERIALS: item names can be found in here. THEY ARE CASE SENSITIVE
+#  https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
+
+Items:
+  - "SPRUCE_LOG"
