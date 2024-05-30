@@ -28,7 +28,7 @@ public class TeleportDetectListener implements Listener {
                 items.add(new ItemStack(Material.valueOf(stringValue)));
             }
         } catch (IllegalArgumentException e) {
-            di.getLogger().warning(itemValue + " is not a real item!");
+            di.getLogger().warning(itemValue + " was not detected / is not a real item!");
         }
 
         return items;
@@ -57,6 +57,12 @@ public class TeleportDetectListener implements Listener {
                 if (item.getType().equals(itemStack.getType())) {
                     e.getPlayer().getWorld().dropItem(e.getFrom(), item);
                     inventory.remove(item);
+
+                    int amountDropped = item.getAmount();
+
+                    // Send a message to the player with the dropped item's name
+                    String itemName = itemStack.getType().toString();
+                    e.getPlayer().sendMessage("§cTeleporting Dropped " + "§8("+amountDropped+"x§8)§e" + " " + itemName);
                 }
             }
 
