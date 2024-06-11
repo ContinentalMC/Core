@@ -14,10 +14,6 @@ import java.util.List;
 
 public class TeleportDetectListener implements Listener {
 
-    private CMC di;
-
-    public TeleportDetectListener(CMC cmc) {
-    }
 
     private List<ItemStack> convertItems(List<String> itemList) {
         List<ItemStack> items = new ArrayList<>();
@@ -28,7 +24,8 @@ public class TeleportDetectListener implements Listener {
                 items.add(new ItemStack(Material.valueOf(stringValue)));
             }
         } catch (IllegalArgumentException e) {
-            di.getLogger().warning(itemValue + " was not detected / is not a real item!");
+            CMC.debug(itemValue + " was not detected / is not a real item!");
+            // di.getLogger().warning(itemValue + " was not detected / is not a real item!");
         }
         return items;
     }

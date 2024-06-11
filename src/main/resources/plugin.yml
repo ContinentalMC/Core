@@ -1,8 +1,8 @@
 name: CMC-Core
+api: '1.20.6''
 version: '${project.version}'
 load: STARTUP
 main: org.cmc.CMC
-api-version: '1.20.6'
 authors: [Nikkilectric, Yopal]
 website: dsc.gg/ContinentalMC
 prefix: Core
