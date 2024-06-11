@@ -1,5 +1,5 @@
 name: CMC-Core
-api: '1.20.6''
+api: '1.20.6'
 version: '${project.version}'
 load: STARTUP
 main: org.cmc.CMC

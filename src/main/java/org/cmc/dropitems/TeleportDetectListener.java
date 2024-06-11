@@ -7,7 +7,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.cmc.CMC;
+import org.cmc.CMCutil;
+
+import net.md_5.bungee.api.ChatColor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,8 +26,8 @@ public class TeleportDetectListener implements Listener {
                 items.add(new ItemStack(Material.valueOf(stringValue)));
             }
         } catch (IllegalArgumentException e) {
-            CMC.debug(itemValue + " was not detected / is not a real item!");
-            // di.getLogger().warning(itemValue + " was not detected / is not a real item!");
+            CMCutil.debug(itemValue + " was not detected / is not a real item!", ChatColor.RED);
+            // OLD di.getLogger().warning(itemValue + " was not detected / is not a real item!");
         }
         return items;
     }
