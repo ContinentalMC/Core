@@ -6,16 +6,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.cmc.CMC;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TeleportDetectListener implements Listener {
 
-    private DropItems di;
+    private CMC di;
 
-    public TeleportDetectListener(DropItems di) {
-        this.di = di;
+    public TeleportDetectListener(CMC cmc) {
     }
 
     private List<ItemStack> convertItems(List<String> itemList) {

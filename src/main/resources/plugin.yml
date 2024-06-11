@@ -1,4 +1,13 @@
 name: CMC-Core
 version: '${project.version}'
-main: org.cmc.core.CMCCore
-api-version: '1.20'
+load: STARTUP
+main: org.cmc.CMC
+api-version: '1.20.6'
+authors: [Nikkilectric, Yopal]
+website: dsc.gg/ContinentalMC
+prefix: Core
+depend: [PlaceholderAPI]
+softdepend: [Vault]
+
+
+
