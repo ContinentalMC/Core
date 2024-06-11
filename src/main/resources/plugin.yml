@@ -1,4 +1,4 @@
-name: DropItems
+name: CMC-Core
 version: '${project.version}'
-main: org.cmc.dropitems.DropItems
+main: org.cmc.core.CMCCore
 api-version: '1.20'
