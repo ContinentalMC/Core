@@ -1,6 +1,7 @@
 package org.cmc.dropitems;
 
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -34,7 +35,8 @@ public class TeleportDetectListener implements Listener {
 
     @EventHandler
     public void onTeleport(PlayerTeleportEvent e) {
-        if (!(e.getCause().equals(PlayerTeleportEvent.TeleportCause.COMMAND) || e.getCause().equals(PlayerTeleportEvent.TeleportCause.PLUGIN))) {
+        Player player = e.getPlayer();
+        if (!(e.getCause().equals(PlayerTeleportEvent.TeleportCause.COMMAND) || e.getCause().equals(PlayerTeleportEvent.TeleportCause.PLUGIN)) || player.hasMetadata("MT-Teleported")) {
             return;
         }
 
