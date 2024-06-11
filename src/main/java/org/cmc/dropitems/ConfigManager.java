@@ -15,7 +15,7 @@ public class ConfigManager {
     }
 
     public static List<String> getItemList() {
-        return config.getStringList("Items");
+        return config.getStringList("DropBlacklist");
     }
 
 }

@@ -1,5 +1,7 @@
 # MATERIALS: item names can be found in here. THEY ARE CASE SENSITIVE
 #  https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 
-Items:
+
+# Items the player SHOULD NOT drop
+DropBlacklist:
   - "SPRUCE_LOG"
