@@ -44,9 +44,6 @@ public class LevelPermissions implements @NotNull Listener {
       LevelCheck(player, level, 64);
       LevelCheck(player, level, 86);
 
-      
-
-
     }
   }
 }
