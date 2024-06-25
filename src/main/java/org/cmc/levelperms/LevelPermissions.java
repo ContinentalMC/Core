@@ -34,7 +34,7 @@ public class LevelPermissions implements @NotNull Listener {
         Bukkit.getServer().getPluginManager().removePermission("cmc.level.32");
         Bukkit.getServer().getPluginManager().removePermission("cmc.level.48");
         Bukkit.getServer().getPluginManager().removePermission("cmc.level.64");
-        Bukkit.getServer().getPluginManager().removePermission("cmc.level.80");
+        Bukkit.getServer().getPluginManager().removePermission("cmc.level.86");
       }
       // Levels
       LevelCheck(player, level, 12);
@@ -43,6 +43,8 @@ public class LevelPermissions implements @NotNull Listener {
       LevelCheck(player, level, 42);
       LevelCheck(player, level, 64);
       LevelCheck(player, level, 86);
+
+      
 
 
     }
