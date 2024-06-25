@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cmc.dropitems.*;
 import org.cmc.levelperms.LevelPermissions;
+import org.cmc.movecraft.RotateEvent;
 
 public final class CMC extends JavaPlugin {
     @Override
@@ -12,6 +13,7 @@ public final class CMC extends JavaPlugin {
         ConfigManager.setupConfig(this);
         Bukkit.getPluginManager().registerEvents(new TeleportDetectListener(), this);
         Bukkit.getPluginManager().registerEvents(new LevelPermissions(), this);
+        Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
         CMCutil.StartTimer();
     }
 
