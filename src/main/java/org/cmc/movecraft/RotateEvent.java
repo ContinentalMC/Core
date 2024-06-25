@@ -5,7 +5,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.EventPriority;
+import net.countercraft.movecraft.listener;
 
 public class RotateEvent implements Listener {
    @EventHandler
@@ -28,5 +31,13 @@ public class RotateEvent implements Listener {
       }
 
       e.setCancelled(true);
+   }
+   @EventHandler(priority = EventPriority.LOWEST)
+      public onDrop(PlayerInteractEvent e) {
+      ItemStack itemStack = e.getItem();
+      Player player = e.getPlayer();
+      if (itemStack.getItemMeta().getDisplayName().equals("§6Controller")) {
+         e.setCancelled(true);
+      }
    }
 }

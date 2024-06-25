@@ -62,7 +62,19 @@
           <id>sonatype</id>
           <url>https://oss.sonatype.org/content/groups/public/</url>
       </repository>
+      <repository>
+            <id>github</id>
+            <name>GitHub APDevTeam/Movecraft Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/APDevTeam/Movecraft</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+      </repository>
   </repositories>
+  
 
   <dependencies>
       <dependency>
@@ -82,6 +94,12 @@
         <artifactId>api</artifactId>
         <version>5.4</version>
         <scope>provided</scope>
-    </dependency>
+      </dependency>
+      <dependency>
+          <groupId>net.countercraft</groupId>
+          <artifactId>movecraft</artifactId>
+          <version>LATEST</version>
+          <scope>provided</scope>
+      </dependency>
   </dependencies>
 </project>
