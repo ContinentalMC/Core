@@ -11,10 +11,10 @@ public final class CMC extends JavaPlugin {
     public void onEnable() {
         // Plugin startup logic
         ConfigManager.setupConfig(this);
+        CMCutil.StartTimer();
         Bukkit.getPluginManager().registerEvents(new TeleportDetectListener(), this);
         Bukkit.getPluginManager().registerEvents(new LevelPermissions(), this);
         Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
-        CMCutil.StartTimer();
     }
 
     @Override
