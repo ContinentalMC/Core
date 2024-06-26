@@ -55,14 +55,6 @@
             <url>https://repo.papermc.io/repository/maven-public/</url>
       </repository>
       <repository>
-            <id>placeholderapi</id>
-            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-      </repository>
-      <repository>
-          <id>sonatype</id>
-          <url>https://oss.sonatype.org/content/groups/public/</url>
-      </repository>
-      <repository>
             <id>github</id>
             <name>GitHub APDevTeam/Movecraft Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/APDevTeam/Movecraft</url>
@@ -73,10 +65,24 @@
                 <enabled>true</enabled>
             </snapshots>
       </repository>
+      <repository>
+            <id>placeholderapi</id>
+            <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+      </repository>
+      <repository>
+          <id>sonatype</id>
+          <url>https://oss.sonatype.org/content/groups/public/</url>
+      </repository>
   </repositories>
   
 
   <dependencies>
+      <dependency>
+          <groupId>net.countercraft</groupId>
+          <artifactId>movecraft-api</artifactId>
+          <version>LATEST</version>
+          <scope>provided</scope>
+      </dependency>
       <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
@@ -94,12 +100,6 @@
         <artifactId>api</artifactId>
         <version>5.4</version>
         <scope>provided</scope>
-      </dependency>
-      <dependency>
-          <groupId>net.countercraft</groupId>
-          <artifactId>movecraft</artifactId>
-          <version>LATEST</version>
-          <scope>provided</scope>
       </dependency>
   </dependencies>
 </project>
