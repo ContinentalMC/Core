@@ -14,8 +14,7 @@ public class ConfigManager {
         cmc.saveDefaultConfig();
     }
 
-    public static List<String> getItemList() {
+    public static List<String> getDropBlacklist() {
         return config.getStringList("DropBlacklist");
     }
-
 }

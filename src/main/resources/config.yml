@@ -2,6 +2,6 @@
 #  https://hub.spigotmc.org/javadocs/bukkit/org/bukkit/Material.html
 
 
-# Items the player SHOULD NOT drop
+# Items the player SHOULD NOT drop, Additionally, You can use "ITEM:{CUSTOM_MODEL_DATA}" to input custom items.
 DropBlacklist:
   - "SPRUCE_LOG"
