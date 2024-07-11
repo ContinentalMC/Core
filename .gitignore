@@ -1,11 +1,5 @@
 # Project exclude paths
 /target/
 .vscode/settings.json
-.idea/.gitignore
-.gitignore
-.idea/.gitignore
-.idea/compiler.xml
-.idea/encodings.xml
-.idea/jarRepositories.xml
-.idea/misc.xml
-.idea/modules.xml
+.idea/*
+
