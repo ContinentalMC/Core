@@ -17,6 +17,7 @@ public final class CMC extends JavaPlugin {
         ConfigManager.setupConfig(this);
         CMCutil.StartTimer();
         Bukkit.getPluginManager().registerEvents(new TeleportDetectListener(), this);
+        Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
     }
 

@@ -26,7 +26,7 @@ public class TeleportDetectListener implements Listener {
                 items.add(new ItemStack(Material.valueOf(stringValue)));
             }
         } catch (IllegalArgumentException e) {
-            CMCutil.debug(itemValue + " was not detected / is not a real item!", ChatColor.RED);
+            CMCutil.debug(itemValue + " was not detected / is not a real item! Will not be added to the Teleport whitelist.", ChatColor.RED);
             // OLD di.getLogger().warning(itemValue + " was not detected / is not a real item!");
         }
         return items;
