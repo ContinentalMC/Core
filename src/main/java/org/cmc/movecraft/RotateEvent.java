@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.util.Vector;
 import org.cmc.CMC;
 
@@ -25,26 +26,29 @@ public class RotateEvent implements Listener {
         ItemStack itemStack = e.getItemDrop().getItemStack();
         Player player = e.getPlayer();
 
-        if (itemStack.getItemMeta().getDisplayName().equals("§6Controller")) {
-            player.performCommand("rotate right");
+        if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData()) {
+            ItemMeta meta = itemStack.getItemMeta();
+            if (meta.getCustomModelData() == 22 && itemStack.getType() == Material.STICK) {
+                player.performCommand("rotate right");
 
-            e.setCancelled(true);
+                e.setCancelled(true);
 
-            // Check if the player is considered airborne (falling or jumping)
-            if (isAirborne(player)) {
-                return; // Exit method if the player is airborne
-            }
+                // Check if the player is considered airborne (falling or jumping)
+                if (isAirborne(player)) {
+                    return; // Exit method if the player is airborne
+                }
 
-            // Calculate the location two blocks in front of the player's head direction
-            Location playerEyeLocation = player.getEyeLocation();
-            Vector direction = playerEyeLocation.getDirection().normalize().multiply(2); // Multiply by 2 for two blocks
-            Location barrierLocation = playerEyeLocation.clone().add(direction).getBlock().getLocation();
+                // Calculate the location two blocks in front of the player's head direction
+                Location playerEyeLocation = player.getEyeLocation();
+                Vector direction = playerEyeLocation.getDirection().normalize().multiply(2); // Multiply by 2 for two blocks
+                Location barrierLocation = playerEyeLocation.clone().add(direction).getBlock().getLocation();
 
-            // Check if there's already a block in front of the player's reach
-            Block blockInFront = barrierLocation.getBlock();
-            if (blockInFront.isEmpty() || blockInFront.isLiquid()) {
-                // Place a barrier block at the calculated location
-                placeBarrierAt(barrierLocation);
+                // Check if there's already a block in front of the player's reach
+                Block blockInFront = barrierLocation.getBlock();
+                if (blockInFront.isEmpty() || blockInFront.isLiquid()) {
+                    // Place a barrier block at the calculated location
+                    placeBarrierAt(barrierLocation);
+                }
             }
         }
     }
@@ -54,12 +58,17 @@ public class RotateEvent implements Listener {
         ItemStack itemStack = e.getOffHandItem();
         Player player = e.getPlayer();
 
-        if (itemStack.getItemMeta().getDisplayName().equals("§6Controller")) {
-            // Perform your rotation logic here
-            player.performCommand("rotate left");
+        if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData()) {
+            ItemMeta meta = itemStack.getItemMeta();
+            if (meta.getCustomModelData() == 22 && itemStack.getType() == Material.STICK) {
+                // Perform your rotation logic here
+                player.performCommand("rotate left");
 
-            // Cancel the swap event
-            e.setCancelled(true);
+                // Cancel the swap event
+                e.setCancelled(true);
+            } else {
+                return;
+            }
         }
     }
 
@@ -77,7 +86,7 @@ public class RotateEvent implements Listener {
                 return false; // Found solid ground within 5 blocks underneath player
             }
         }
-        
+
         // Check player's velocity to determine if they are falling
         Vector velocity = player.getVelocity();
         if (velocity.getY() < -0.8) {
@@ -95,10 +104,10 @@ public class RotateEvent implements Listener {
             // Store the barrier block location for removal later
             barrierLocations.put(location, block);
 
-            // Schedule a task to remove the barrier after a short delay 
+            // Schedule a task to remove the barrier after a short delay
             Bukkit.getScheduler().runTaskLater(CMC.getInstance(), () -> {
                 removeBarrier(location);
-            }, 1L); // Remove barrier after a short delay 
+            }, 1L); // Remove barrier after a short delay
         }
     }
 
