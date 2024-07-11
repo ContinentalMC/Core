@@ -67,8 +67,8 @@ public class DeathListener implements Listener {
         // Drop the items at random locations near the player's death location
         Random random = new Random();
         for (ItemStack item : itemsToDrop) {
-            double offsetX = (random.nextDouble() - 0.5) * 2; // Random offset between -1 and 1
-            double offsetZ = (random.nextDouble() - 0.5) * 2; // Random offset between -1 and 1
+            double offsetX = (random.nextDouble() - 0.5) * 0.5; // Random offset 
+            double offsetZ = (random.nextDouble() - 0.5) * 0.5; // Random offset 
             double offsetY = random.nextDouble() * 0.5; // Random offset between 0 and 0.5 for upward launch
             Location dropLocation = deathLocation.clone().add(offsetX, 0, offsetZ);
             Item droppedItem = player.getWorld().dropItem(dropLocation, item);
