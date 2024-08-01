@@ -9,6 +9,11 @@ website: dsc.gg/ContinentalMC
 prefix: Core
 depend: [PlaceholderAPI, Movecraft]
 softdepend: [Vault]
+commands:
+   shops:
+      description: Open the shops GUI
+      usage: /shops
+      permission: cmc.shops.browse
 
 
 
