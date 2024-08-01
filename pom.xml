@@ -75,6 +75,10 @@
           <id>sonatype</id>
           <url>https://oss.sonatype.org/content/groups/public/</url>
       </repository>
+    <repository>
+        <id>codemc</id>
+        <url>https://repo.codemc.io/repository/maven-public/</url>
+    </repository>
   </repositories>
   
 
@@ -90,7 +94,7 @@
       <dependency>
             <groupId>io.papermc.paper</groupId>
             <artifactId>paper-api</artifactId>
-            <version>1.20.6-R0.1-SNAPSHOT</version>
+            <version>1.21-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
       </dependency>
       <dependency>
@@ -105,5 +109,23 @@
         <version>5.4</version>
         <scope>provided</scope>
       </dependency>
+    <!--
+    Quickshop-Only
+    -->
+    <dependency>
+      <groupId>com.ghostchu</groupId>
+      <artifactId>quickshop-bukkit</artifactId>
+      <version>6.2.0.6</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.ghostchu</groupId>
+      <artifactId>quickshop-common</artifactId>
+      <version>6.2.0.6</version>
+      <scope>provided</scope>
+    </dependency>
+    <!--
+      Quickshop-Only
+    -->
   </dependencies>
 </project>
