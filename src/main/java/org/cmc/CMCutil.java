@@ -36,6 +36,14 @@ public class CMCutil {
         ConsoleCommandSender sender = Bukkit.getConsoleSender();
         sender.sendMessage(color+message);
     }
+    public static void log(String message, ChatColor color){
+        if(color == null){
+            debug(message);
+            return;
+        }
+        ConsoleCommandSender sender = Bukkit.getConsoleSender();
+        sender.sendMessage(color+message);
+    }
     public static Plugin getPlugin() {
         return
         Bukkit.getServer().getPluginManager().getPlugin("CMC-Core");

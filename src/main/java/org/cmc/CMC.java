@@ -20,6 +20,19 @@ public final class CMC extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new TeleportDetectListener(), this);
         Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
+
+        CMCutil.log("   .----------------. .----------------. .----------------. ", null);
+        CMCutil.log("  | .--------------. | .--------------. | .--------------. |", null);
+        CMCutil.log("  | |     ______   | | | ____    ____ | | |     ______   | |", null);
+        CMCutil.log("  | |   .' ___  |  | | ||_   \\  /   _|| | |   .' ___  |  | |", null);
+        CMCutil.log("  | |  / .'   \\_|  | | |  |   \\/   |  | | |  / .'   \\_|  | |", null);
+        CMCutil.log("  | |  | |         | | |  | |\\  /| |  | | |  | |         | |", null);
+        CMCutil.log("  | |  \\ `.___.'\\  | | | _| |_\\/| |_  | | |  \\ `.___.'\\  | |", null);
+        CMCutil.log("  | |   `._____.'  | | ||_____||_____|| | |   `._____.'  | |", null);
+        CMCutil.log("  | |              | | |              | | |              | |", null);
+        CMCutil.log("  | '--------------' | '--------------' | '--------------' |", null);
+        CMCutil.log("   '----------------' '----------------' '----------------' ", null);
+        CMCutil.log("Has  loaded!", null);
     }
 
     @Override
