@@ -109,23 +109,5 @@
         <version>5.4</version>
         <scope>provided</scope>
       </dependency>
-    <!--
-    Quickshop-Only
-    -->
-    <dependency>
-      <groupId>com.ghostchu</groupId>
-      <artifactId>quickshop-bukkit</artifactId>
-      <version>6.2.0.6</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>com.ghostchu</groupId>
-      <artifactId>quickshop-common</artifactId>
-      <version>6.2.0.6</version>
-      <scope>provided</scope>
-    </dependency>
-    <!--
-      Quickshop-Only
-    -->
   </dependencies>
 </project>
