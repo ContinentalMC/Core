@@ -63,7 +63,7 @@ public class TeleportDetectListener implements Listener {
     @EventHandler
     public void onTeleport(PlayerTeleportEvent e) {
         Player player = e.getPlayer();
-        if (!(e.getCause().equals(PlayerTeleportEvent.TeleportCause.COMMAND) || e.getCause().equals(PlayerTeleportEvent.TeleportCause.PLUGIN)) || player.hasMetadata("MT-Teleported")) {
+        if (!(e.getCause().equals(PlayerTeleportEvent.TeleportCause.COMMAND) || e.getCause().equals(PlayerTeleportEvent.TeleportCause.PLUGIN)) || (player.hasMetadata("MT-Teleported")) || (player.hasMetadata("DontDropTP") || (player.hasMetadata("StaffMode"))))  {
             return;
         }
 
