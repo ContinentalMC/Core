@@ -3,6 +3,7 @@ package org.cmc;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cmc.dropitems.*;
+import org.cmc.items.*;
 import org.cmc.movecraft.RotateEvent;
 
 public final class CMC extends JavaPlugin {
@@ -20,6 +21,7 @@ public final class CMC extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new TeleportDetectListener(), this);
         Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
+        this.getCommand("getenchantments").setExecutor(new EnchantmentsCommand());
 
         CMCutil.log("   .----------------. .----------------. .----------------. ", null);
         CMCutil.log("  | .--------------. | .--------------. | .--------------. |", null);
