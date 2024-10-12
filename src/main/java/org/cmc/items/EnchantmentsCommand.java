@@ -26,7 +26,7 @@ public class EnchantmentsCommand implements CommandExecutor {
             Player player = (Player) sender;
 
             // Check if the player has the required permission
-            if (!player.hasPermission("cmc.admin.getenchants")) {
+            if (!player.hasPermission("cmc.mod.getenchants")) {
                 player.sendMessage(ChatColor.RED + "You do not have permission to use this command.");
                 return true;
             }

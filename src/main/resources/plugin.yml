@@ -13,7 +13,7 @@ commands:
   getenchantments:
     description: Returns the enchantments of the item in hand.
     usage: /getenchantments
-    permission: cmc.admin.getenchants
+    permission: cmc.mod.getenchants
 permissions:
   cmc.admin.getenchants:
     description: Allows a player to use the getenchantments command.
