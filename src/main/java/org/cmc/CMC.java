@@ -21,7 +21,16 @@ public final class CMC extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new TeleportDetectListener(), this);
         Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new PickupItemListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EnchantmentPreviewListener(), this);
+        // Commands
         this.getCommand("getenchantments").setExecutor(new EnchantmentsCommand());
+
+        // Integrations
+        if (getServer().getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new EnchantmentsPlaceholder(this).register();
+        }
+
 
         CMCutil.log("   .----------------. .----------------. .----------------. ", null);
         CMCutil.log("  | .--------------. | .--------------. | .--------------. |", null);
