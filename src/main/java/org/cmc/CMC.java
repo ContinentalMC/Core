@@ -1,10 +1,14 @@
 package org.cmc;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cmc.dropitems.*;
 import org.cmc.items.*;
 import org.cmc.movecraft.RotateEvent;
+import org.cmc.items.EnchantItemListener;
+import org.cmc.items.InventoryClickListener;
+
 
 public final class CMC extends JavaPlugin {
 
@@ -23,6 +27,8 @@ public final class CMC extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
         Bukkit.getPluginManager().registerEvents(new PickupItemListener(), this);
         Bukkit.getPluginManager().registerEvents(new EnchantmentPreviewListener(), this);
+        Bukkit.getPluginManager().registerEvents(new InventoryClickListener(), this);
+        Bukkit.getPluginManager().registerEvents(new EnchantItemListener(), this);
         // Commands
         this.getCommand("getenchantments").setExecutor(new EnchantmentsCommand());
 
