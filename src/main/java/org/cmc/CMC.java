@@ -1,10 +1,9 @@
 package org.cmc;
 
 import org.bukkit.Bukkit;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.cmc.dropitems.*;
-import org.cmc.items.*;
+import org.cmc.events.EnchantTableInteractListener;
 import org.cmc.movecraft.RotateEvent;
 
 
@@ -23,6 +22,8 @@ public final class CMC extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new TeleportDetectListener(), this);
         Bukkit.getPluginManager().registerEvents(new DeathListener(), this);
         Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
+        Bukkit.getPluginManager().registerEvents(new EnchantTableInteractListener(), this);
+
 
         // Integrations
 
