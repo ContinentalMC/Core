@@ -22,36 +22,48 @@ public class RotateEvent implements Listener {
     private final Map<Location, Block> barrierLocations = new HashMap<>();
 
     @EventHandler
-    public void onDrop(PlayerDropItemEvent e) {
-        ItemStack itemStack = e.getItemDrop().getItemStack();
-        Player player = e.getPlayer();
+public void onDrop(PlayerDropItemEvent e) {
+    ItemStack droppedItem = e.getItemDrop().getItemStack();
+    Player player = e.getPlayer();
 
-        if (itemStack.hasItemMeta() && itemStack.getItemMeta().hasCustomModelData()) {
-            ItemMeta meta = itemStack.getItemMeta();
-            if (meta.getCustomModelData() == 22 && itemStack.getType() == Material.STICK) {
-                player.performCommand("rotate right");
+    // Check if the dropped item matches the main hand item
+    ItemStack mainHandItem = player.getInventory().getItemInMainHand();
 
-                e.setCancelled(true);
+    // Allow dropping if it's not from the main hand
+    if (!droppedItem.isSimilar(mainHandItem)) {
+        return; // Exit the event, allowing the drop
+    }
 
-                // Check if the player is considered airborne (falling or jumping)
-                if (isAirborne(player)) {
-                    return; // Exit method if the player is airborne
-                }
+    // Check if the item has the required custom model data and type
+    if (droppedItem.hasItemMeta() && droppedItem.getItemMeta().hasCustomModelData()) {
+        ItemMeta meta = droppedItem.getItemMeta();
+        if (meta.getCustomModelData() == 22 && droppedItem.getType() == Material.STICK) {
+            // Execute the rotate right command
+            player.performCommand("rotate right");
 
-                // Calculate the location two blocks in front of the player's head direction
-                Location playerEyeLocation = player.getEyeLocation();
-                Vector direction = playerEyeLocation.getDirection().normalize().multiply(2); // Multiply by 2 for two blocks
-                Location barrierLocation = playerEyeLocation.clone().add(direction).getBlock().getLocation();
+            // Cancel the drop event to prevent the item from being dropped
+            e.setCancelled(true);
 
-                // Check if there's already a block in front of the player's reach
-                Block blockInFront = barrierLocation.getBlock();
-                if (blockInFront.isEmpty() || blockInFront.isLiquid()) {
-                    // Place a barrier block at the calculated location
-                    placeBarrierAt(barrierLocation);
-                }
+            // Check if the player is airborne (falling or jumping)
+            if (isAirborne(player)) {
+                return; // Exit method if the player is airborne
+            }
+
+            // Calculate the location two blocks in front of the player's head direction
+            Location playerEyeLocation = player.getEyeLocation();
+            Vector direction = playerEyeLocation.getDirection().normalize().multiply(2); // Multiply by 2 for two blocks
+            Location barrierLocation = playerEyeLocation.clone().add(direction).getBlock().getLocation();
+
+            // Check if there's already a block in front of the player's reach
+            Block blockInFront = barrierLocation.getBlock();
+            if (blockInFront.isEmpty() || blockInFront.isLiquid()) {
+                // Place a barrier block at the calculated location
+                placeBarrierAt(barrierLocation);
             }
         }
     }
+}
+
 
     @EventHandler
     public void onSwap(PlayerSwapHandItemsEvent e) {

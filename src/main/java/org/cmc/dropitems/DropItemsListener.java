@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class DeathListener implements Listener {
+public class DropItemsListener implements Listener {
 
     private List<ItemStack> convertItems(List<String> itemList) {
         List<ItemStack> items = new ArrayList<>();
@@ -32,7 +33,7 @@ public class DeathListener implements Listener {
                 }
             }
         } catch (IllegalArgumentException e) {
-            CMCutil.debug(itemValue + " was not detected / is not a real item! Will not be added to the KeepInventory whitelist.", ChatColor.RED);
+            CMCutil.debug(itemValue + " was not detected / is not a real item! Will not be added to the blacklist.", ChatColor.RED);
         }
         return items;
     }
@@ -62,9 +63,77 @@ public class DeathListener implements Listener {
         return itemStack;
     }
 
+    private boolean matchesItemStack(ItemStack itemStack, ItemStack configItem) {
+        if (itemStack.getType() != configItem.getType()) {
+            return false;
+        }
+
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        ItemMeta configMeta = configItem.getItemMeta();
+
+        if (itemMeta == null || configMeta == null) {
+            return true; // If no meta, match based only on material
+        }
+
+        boolean itemHasCMD = itemMeta.hasCustomModelData();
+        boolean configHasCMD = configMeta.hasCustomModelData();
+
+        if (itemHasCMD != configHasCMD) {
+            return false;
+        }
+
+        if (itemHasCMD && itemMeta.getCustomModelData() != configMeta.getCustomModelData()) {
+            return false;
+        }
+
+        return true; // Material and custom model data match
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent e) {
+        Player player = e.getPlayer();
+
+        if (!(e.getCause().equals(PlayerTeleportEvent.TeleportCause.COMMAND) || 
+              e.getCause().equals(PlayerTeleportEvent.TeleportCause.PLUGIN)) || 
+              player.hasMetadata("MT-Teleported") || 
+              player.hasMetadata("DontDropTP") || 
+              player.hasMetadata("StaffMode")) {
+            return;
+        }
+
+        Inventory inventory = player.getInventory();
+        Location fromLocation = e.getFrom();
+
+        List<String> items = ConfigManager.getDropBlacklist();
+        List<ItemStack> configItems = convertItems(items);
+
+        for (ItemStack item : inventory.getContents()) {
+            if (item == null || item.getType() == Material.AIR) {
+                continue;
+            }
+
+            boolean shouldDrop = true;
+            for (ItemStack configItem : configItems) {
+                if (matchesItemStack(item, configItem)) {
+                    shouldDrop = false;
+                    break;
+                }
+            }
+
+            if (shouldDrop) {
+                player.getWorld().dropItem(fromLocation, item);
+                inventory.remove(item);
+
+                int amountDropped = item.getAmount();
+                String itemName = item.getType().toString();
+                player.sendMessage("§cTeleporting Dropped " + "§8(" + amountDropped + "x§8)§e " + itemName);
+            }
+        }
+    }
+
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
-        Player player = e.getEntity();
+        Player player = e.getPlayer();
         Inventory inventory = player.getInventory();
         Location deathLocation = player.getLocation();
 
@@ -82,55 +151,25 @@ public class DeathListener implements Listener {
             for (ItemStack configItem : configItems) {
                 if (matchesItemStack(item, configItem)) {
                     shouldDrop = false;
-                    break; // No need to continue checking once a match is found
+                    break;
                 }
             }
 
-            // Only drop items not in the config
             if (shouldDrop) {
                 itemsToDrop.add(item);
                 inventory.remove(item);
             }
         }
 
-        // Drop the items at random locations near the player's death location
         Random random = new Random();
         for (ItemStack item : itemsToDrop) {
-            double offsetX = (random.nextDouble() - 0.5) * 0.5; // Random offset 
-            double offsetZ = (random.nextDouble() - 0.5) * 0.5; // Random offset 
-            double offsetY = random.nextDouble() * 0.5; // Random offset between 0 and 0.5 for upward launch
+            double offsetX = (random.nextDouble() - 0.5) * 0.5;
+            double offsetZ = (random.nextDouble() - 0.5) * 0.5;
+            double offsetY = random.nextDouble() * 0.5;
             Location dropLocation = deathLocation.clone().add(offsetX, 0, offsetZ);
             player.getWorld().dropItem(dropLocation, item).setVelocity(new Vector(offsetX, offsetY, offsetZ));
         }
 
-        // Clear the event drops to prevent default behavior
         e.getDrops().clear();
-    }
-
-    @SuppressWarnings("deprecation") // We need to change getDurability to ItemMeta later
-    private boolean matchesItemStack(ItemStack itemStack, ItemStack configItem) {
-        if (itemStack.getType() != configItem.getType()) {
-            return false;
-        }
-
-        if (itemStack.getDurability() != configItem.getDurability()) {
-            return false;
-        }
-
-        ItemMeta itemMeta = itemStack.getItemMeta();
-        ItemMeta configMeta = configItem.getItemMeta();
-        if (itemMeta == null || configMeta == null) {
-            return false;
-        }
-
-        if (itemMeta.hasCustomModelData() != configMeta.hasCustomModelData()) {
-            return false;
-        }
-
-        if (itemMeta.hasCustomModelData()) {
-            return itemMeta.getCustomModelData() == configMeta.getCustomModelData();
-        }
-
-        return true; // No custom model data, compare based on material and durability
     }
 }
