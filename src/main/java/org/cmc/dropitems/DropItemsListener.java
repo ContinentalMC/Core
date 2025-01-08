@@ -89,47 +89,6 @@ public class DropItemsListener implements Listener {
         return true; // Material and custom model data match
     }
 
-    @EventHandler
-    public void onTeleport(PlayerTeleportEvent e) {
-        Player player = e.getPlayer();
-
-        if (!(e.getCause().equals(PlayerTeleportEvent.TeleportCause.COMMAND) || 
-              e.getCause().equals(PlayerTeleportEvent.TeleportCause.PLUGIN)) || 
-              player.hasMetadata("MT-Teleported") || 
-              player.hasMetadata("DontDropTP") || 
-              player.hasMetadata("StaffMode")) {
-            return;
-        }
-
-        Inventory inventory = player.getInventory();
-        Location fromLocation = e.getFrom();
-
-        List<String> items = ConfigManager.getDropBlacklist();
-        List<ItemStack> configItems = convertItems(items);
-
-        for (ItemStack item : inventory.getContents()) {
-            if (item == null || item.getType() == Material.AIR) {
-                continue;
-            }
-
-            boolean shouldDrop = true;
-            for (ItemStack configItem : configItems) {
-                if (matchesItemStack(item, configItem)) {
-                    shouldDrop = false;
-                    break;
-                }
-            }
-
-            if (shouldDrop) {
-                player.getWorld().dropItem(fromLocation, item);
-                inventory.remove(item);
-
-                int amountDropped = item.getAmount();
-                String itemName = item.getType().toString();
-                player.sendMessage("§cTeleporting Dropped " + "§8(" + amountDropped + "x§8)§e " + itemName);
-            }
-        }
-    }
 
     @EventHandler
     public void onPlayerDeath(PlayerDeathEvent e) {
