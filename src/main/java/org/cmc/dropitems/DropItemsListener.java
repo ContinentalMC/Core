@@ -100,7 +100,6 @@ public class DropItemsListener implements Listener {
         List<ItemStack> configItems = convertItems(items);
 
         List<ItemStack> itemsToDrop = new ArrayList<>();
-        player.sendMessage(NamedTextColor.YELLOW + "You died and lost some items!");
 
         for (ItemStack item : inventory.getContents()) {
             if (item == null || item.getType() == Material.AIR) {
