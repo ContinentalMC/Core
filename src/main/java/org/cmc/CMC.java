@@ -5,6 +5,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.cmc.dropitems.ConfigManager;
 import org.cmc.dropitems.DropItemsListener;
 import org.cmc.events.EnchantTableInteractListener;
+import org.cmc.items.getEnchantsCommand;
 import org.cmc.movecraft.RotateEvent;
 
 
@@ -23,6 +24,7 @@ public final class CMC extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new DropItemsListener(), this);
         Bukkit.getPluginManager().registerEvents(new RotateEvent(), this);
         Bukkit.getPluginManager().registerEvents(new EnchantTableInteractListener(), this);
+        this.getCommand("getenchantments").setExecutor(new getEnchantsCommand());
 
 
         // Integrations
