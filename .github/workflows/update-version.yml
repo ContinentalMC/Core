@@ -1,0 +1,37 @@
+name: Update POM Version
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  update-pom:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup Java
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Extract latest Git commit hash
+        id: git_info
+        run: echo "commit_hash=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - name: Update POM version
+        run: |
+          VERSION=$(date +%Y%m%d)-$commit_hash
+          echo "Updating POM version to $VERSION"
+          mvn versions:set -DnewVersion=$VERSION -DgenerateBackupPoms=false
+
+      - name: Commit and push updated POM
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add pom.xml
+          git commit -m "Update version to $VERSION"
+          git push
