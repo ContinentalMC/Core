@@ -5,7 +5,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -13,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.util.Vector;
 import org.cmc.CMCutil;
 
+import net.kyori.adventure.text.format.NamedTextColor;
 import net.md_5.bungee.api.ChatColor;
 
 import java.util.ArrayList;
@@ -100,6 +100,7 @@ public class DropItemsListener implements Listener {
         List<ItemStack> configItems = convertItems(items);
 
         List<ItemStack> itemsToDrop = new ArrayList<>();
+        player.sendMessage(NamedTextColor.YELLOW + "You died and lost some items!");
 
         for (ItemStack item : inventory.getContents()) {
             if (item == null || item.getType() == Material.AIR) {
