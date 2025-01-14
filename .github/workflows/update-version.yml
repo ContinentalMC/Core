@@ -24,7 +24,7 @@ jobs:
 
       - name: Update POM version
         run: |
-          VERSION=$(date +%Y%m%d)-$commit_hash
+          VERSION=$(date +%Y-%m-%d)-$commit_hash
           echo "Updating POM version to $VERSION"
           mvn versions:set -DnewVersion=$VERSION -DgenerateBackupPoms=false
 
