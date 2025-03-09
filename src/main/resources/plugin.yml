@@ -4,7 +4,7 @@ api-version: '1.21'
 version: '${project.version}'
 load: STARTUP
 main: org.cmc.CMC
-authors: [Nikkilectric, Yopal]
+authors: [Nikkilectric, Yopal, Bergenfly of Essex]
 website: dsc.gg/ContinentalMC
 prefix: Core
 depend: []
