@@ -3,6 +3,7 @@ package org.cmc.dropitems;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.Inventory;
@@ -90,45 +91,32 @@ public class DropItemsListener implements Listener {
     }
 
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOWEST)
     public void onPlayerDeath(PlayerDeathEvent e) {
-        Player player = e.getPlayer();
-        Inventory inventory = player.getInventory();
-        Location deathLocation = player.getLocation();
-
         List<String> items = ConfigManager.getDropBlacklist();
         List<ItemStack> configItems = convertItems(items);
 
-        List<ItemStack> itemsToDrop = new ArrayList<>();
+        List<ItemStack> itemsToKeep = e.getItemsToKeep();
+        List<ItemStack> itemsToDrop = e.getDrops();
+        List<ItemStack> itemsToDropCopy = new ArrayList(itemsToDrop);
 
-        for (ItemStack item : inventory.getContents()) {
+        for (ItemStack item : itemsToDropCopy) {
             if (item == null || item.getType() == Material.AIR) {
                 continue;
             }
 
-            boolean shouldDrop = true;
+            boolean shouldKeep = false;
             for (ItemStack configItem : configItems) {
                 if (matchesItemStack(item, configItem)) {
-                    shouldDrop = false;
+                    shouldKeep = true;
                     break;
                 }
             }
 
-            if (shouldDrop) {
-                itemsToDrop.add(item);
-                inventory.remove(item);
+            if (shouldKeep) {
+                itemsToDrop.remove(item);
+                itemsToKeep.add(item);
             }
         }
-
-        Random random = new Random();
-        for (ItemStack item : itemsToDrop) {
-            double offsetX = (random.nextDouble() - 0.5) * 0.5;
-            double offsetZ = (random.nextDouble() - 0.5) * 0.5;
-            double offsetY = random.nextDouble() * 0.5;
-            Location dropLocation = deathLocation.clone().add(offsetX, 0, offsetZ);
-            player.getWorld().dropItem(dropLocation, item).setVelocity(new Vector(offsetX, offsetY, offsetZ));
-        }
-
-        e.getDrops().clear();
     }
 }
