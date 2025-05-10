@@ -1,6 +1,6 @@
 name: CMC-Core
-api: '1.21'
-api-version: '1.21'
+api: '1.21.4'
+api-version: '1.21.4'
 version: '${project.version}'
 load: STARTUP
 main: org.cmc.CMC
@@ -17,7 +17,7 @@ commands:
 permissions:
   cmc.admin.getenchants:
     description: Allows a player to use the getenchantments command.
-    default: false
+    default: op
 
 
 
