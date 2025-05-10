@@ -6,7 +6,7 @@
 
   <groupId>org.cmc</groupId>
   <artifactId>CMC-Core</artifactId>
-  <version>2025-03-09-0d01c44</version>
+  <version>2025-05-10-900ee5d</version>
   <packaging>jar</packaging>
 
   <name>CMC-Core</name>
